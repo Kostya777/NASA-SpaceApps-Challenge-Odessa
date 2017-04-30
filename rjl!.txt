@@ -1,0 +1,89 @@
+////#include <Stepper_28BYJ.h> //Библиотека для управления мотором
+//int val=0;
+//const int stepsPerRevolution = 4078; // количество шагов на один оборот
+//const int button = 12;
+////const int led = 14;
+////Stepper_28BYJ myStepper_28BYJ(stepsPerRevolution, 8,9,10,11); // инициализируем библиотеку Stepper_28BYJ на выходы 8-11
+//int stepCount = 0; // количество шагов, которые мотор уже сделал   
+// void setup()    
+// {  
+//      //pinMode(led, OUTPUT);         
+//      pinMode (button, INPUT);
+// }
+// 
+// void loop()
+// {
+////      if(digitalRead(button)==HIGH)//если кнопка нажата ...
+////      {
+////        val++;// прибавляем к переменной 1 при каждой смене цикла.    
+////      delay(500);//небольшая защита от "дребезга" контактов кнопки
+////      }
+////      if(val>=1)
+////      {
+////        digitalWrite(led,!digitalRead(led));//инвертируем состояние пина
+////        
+////        if(digitalRead(led)==HIGH) //если светодиод работает ...
+////        {
+////          myStepper_28BYJ.step(5);  // делаем 1 шаг
+////          delay(5);
+////          stepCount++; //добавляем количество шагов по одному т.к. процедура блокирует процесс
+////        }
+////        
+////         val=0;
+////      }
+//
+//           if(digitalRead(button)==HIGH)
+//           {
+//            //val++;// прибавляем к переменной 1 при каждой смене цикла.
+//
+//            Serial.println("Step");
+//            
+//            //myStepper_28BYJ.step(5);  // делаем 1 шаг
+//
+//                
+//            delay(500);//небольшая защита от "дребезга" контактов кнопки
+//            
+//           }
+//           
+// }
+
+#include <Stepper_28BYJ.h> //Библиотека для управления мотором
+const int stepsPerRevolution = 4078; // количество шагов на один оборот
+Stepper_28BYJ myStepper_28BYJ(stepsPerRevolution, 8,9,10,11); // инициализируем библиотеку Stepper_28BYJ на выходы 8-11
+
+const int buttonPin = 2;     // the number of the pushbutton pin
+const int ledPin =  13;      // the number of the LED pin
+
+// variables will change:
+int buttonState = 0;         // variable for reading the pushbutton status
+
+void setup() 
+{
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+  myStepper_28BYJ.setSpeed(12);
+}
+
+void loop() 
+{
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed.
+  // if it is, the buttonState is HIGH:
+  if (buttonState == HIGH) 
+  {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+
+    myStepper_28BYJ.step(4078);  // делаем 1 шаг
+
+    delay(500);
+  } else 
+  {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+  }
+}
